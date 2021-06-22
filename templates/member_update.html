@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<header class="hd">
+    <div>
+    <h3 class="float-md-start mb-0">MEMBRE DATA</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link" aria-current="page" href="{% url 'home' %}">home</a>
+        <a class="nav-link active" href="#">UPDATE</a>
+        <a class="nav-link" href="{% url 'member_detail' object.pk %}">back</a>
+    </nav>
+    </div>
+</header>
+<form action="" method="POST">{% csrf_token %}
+    <p><label for="id_membername" style="width:100px; text-align: left;">Membername</label> <input type="text" name="membername" value="{{ object.membername }}" maxlength="10" id="id_membername" required></p>
+    <p><label for="id_point_total" style="width:100px; text-align: left;">Point total</label> <input type="number" name="point_total" value="{{ object.point_total }}" id="id_point_total" required></p>
+    <p><label for="id_ave" style="width:100px; text-align: left;">Ave</label> <input type="number" name="ave" value="{{ object.ave }}" id="id_ave" required></p>
+    <p><label for="id_max" style="width:100px; text-align: left;">Max</label> <input type="number" name="max" value="{{ object.max }}" id="id_max" required></p>
+    <p><label for="id_min"style="width:100px; text-align: left;">Min</label> <input type="number" name="min" value="{{ object.min }}" id="id_min" required></p>
+    <input class="button" type="submit" value="UPDATE">
+</form>
+{% endblock content %}

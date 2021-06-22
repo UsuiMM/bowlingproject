@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<header class="mb-auto">
+    <h3 class="float-md-start mb-0">GAME</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link" aria-current="page" href="{% url 'index' %}">back</a>
+        <a class="nav-link active" aria-current="page" href="#">DETAIL</a>
+        <!--a class="nav-link" href="{% url 'core_update' object.pk %}">update</a-->
+        <a class="nav-link" href="{% url 'core_delete_2' object.pk %}">delete</a>
+    </nav>
+</header>
+<body>
+    <table>
+        <tr>
+            <td style="width:50%"> Member </td>
+            <td> {{ object.member }} </td>
+        </tr>
+        <tr>
+            <td>Raund</td>
+            <td>{{ object.raund }}</td>
+        </tr>
+        <tr>
+            <td>Score</td>
+            <td>{{ object.score }}</td>
+        </tr>
+        <tr>
+            <td>Average</td>
+            <td>{{ object.ave }}</td>
+        </tr>
+        <tr>
+            <td>Max</td>
+            <td>{{ object.max }}</td>
+        </tr>
+        <tr>
+            <td>Min</td>
+            <td>{{ object.min }}</td>
+        </tr>
+        <tr>
+            <td>Team</td>
+            <td>{{ object.team_choice }}</td>
+        </tr>
+    </table>
+</body>
+{% endblock content %}

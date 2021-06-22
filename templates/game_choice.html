@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<header class="mb-3">
+    <div>
+    <h3 class="float-md-start mb-0">SETTING</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link" aria-current="page" href="{% url 'home' %}">home</a>
+    </nav>
+    </div>
+</header>
+
+<div class='container'>
+    <div class="card">
+        <div class="card-header">NOW GAME</div>
+        <div class="card-body">
+            <form action="" method="POST">{% csrf_token %}
+                <p>
+                    <label for="id_game_set_member">Game set member:</label> 
+                    <input type="text" name="game_set_member" maxlength="100" required id="id_game_set_member">
+                </p>
+                <input type="submit" value="作成する">
+            </form>
+        </div>
+        <button href="#" class="btn btn-primary">GO</button>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="members" for="member-select">Choose members:</label>
+    <select id="members" name="name_list" class="form-control" multiple>
+        {% for item in object_list %}
+            <option name="members" value="{{ item.membername }}">{{ item.membername }}</option>           
+        {% endfor %}
+    </select>
+</div>
+<a id="button" class="btn btn-primary">SET</a>
+
+<script>
+    $(function(){
+        //IDが"button"のボタンを押すと...
+        document.getElementById('button').addEventListener('click', function(){
+            //選択したメンバーのtext(名前)ストレージへ
+            var members=[];
+            $('#members option:selected').each(function(){
+                members.push($(this).text());
+                sessionStorage.setItem('members', members);
+            })
+
+            window.location.href = "#";
+
+        });
+    });
+</script>
+{% endblock content %}

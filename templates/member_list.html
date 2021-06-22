@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<header class="mb-3">
+    <div>
+    <h3 class="float-md-start mb-0">MEMBER DATA</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link" aria-current="page" href="{% url 'home' %}">home</a>
+        <a class="nav-link active" href="#">LIST</a>
+        <a class="nav-link" href="{% url 'member_add' %}">Add</a>
+    </nav>
+    </div>
+</header>
+<nav role="navigation">
+    <div id="menuToggle">
+        <input type="checkbox" />
+        <span></span>
+        <span></span>
+        <span></span>
+        <ul id="menu">
+            <div class="container">
+                <form action="/member_list/" method="POST">{% csrf_token %}
+                    <button class="sort" type="submit" name="high_point" value="high point order">high point order
+                    <button class="sort" type="submit" name="high_average" value="high average order">high average order
+                    <button class="sort" type="submit" name="high_max" value="high max order">high max order
+                    <button class="sort" type="submit" name="high_min" value="high min order">high min order
+                </form>
+            </div>
+        </ul>
+    </div>
+</nav>
+<div class='container' style="margin-top:45px;">
+    {% for item in object %}
+    {% ifequal item.user_set user.get_username %}
+    <div class="card">
+        <div class="card-header" style="padding:0;">
+            <a href="{% url 'member_detail' item.pk %}" class="btn btn-gradient btn-border-gradient" style="width:100%;">{{ item.membername }}</a>
+        </div>
+        <div class="card-body" style="padding:0; ">
+            <table style="width:100%; font-size:10px;">
+                <tr>
+                    <td>Point</td>
+                    <td>Ave</td>
+                    <td>Max</td>
+                    <td>Min</td>
+                </tr>
+                <tr>
+                    <td>{{ item.point_total }}</td>
+                    <td>{{ item.ave }}</td>
+                    <td>{{ item.max }}</td>
+                    <td>{{ item.min }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    {% endifequal %}
+    {% endfor %}
+</div>
+<p></p>
+<p></p>
+{% endblock content %}

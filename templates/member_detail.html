@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<header class="hd">
+    <div>
+    <h3 class="float-md-start mb-0">MEMBER DATA</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link" aria-current="page" href="{% url 'home' %}">home</a>
+        <a class="nav-link active" href="#">DETAIL</a>
+        <a class="nav-link" href="{% url 'member_list' %}">back</a>
+    </nav>
+    </div>
+</header>
+<div class='container'>
+    <div class="card">
+        <h5 class="card-header">{{ object.membername }}</h5>
+        <div class="card-body">
+            <table style="width:100%;">
+                <tr style="color: #8fc31f;">
+                    <th>Member</th>
+                    <th>Point</th>
+                    <th>Ave</th>
+                    <th>Max</th>
+                    <th>Min</th>
+                </tr>
+                <tr style="color: #8fc31f;">
+                    <td></td>
+                    <td>(total)</td>
+                    <td>(max)</td>
+                    <td>(max)</td>
+                    <td>(max)</td>
+                </tr>
+                <tr>
+                    <td>{{ object.membername }}</td>
+                    <td>{{ object.point_total }}</td>
+                    <td>{{ object.ave }}</td>
+                    <td>{{ object.max }}</td>
+                    <td>{{ object.min }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'member_update' object.pk %}" class="btn btn-gradient btn-border-gradient">UPDATE</a>
+            <a href="{% url 'member_delete' object.pk %}" class="btn btn-gradient btn-border-gradient">DELETE</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

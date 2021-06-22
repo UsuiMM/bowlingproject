@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<header class="hd">
+    <div>
+    <h3 class="float-md-start mb-0">GAME DATA</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link" aria-current="page" href="{% url 'home' %}">home</a>
+        <a class="nav-link active" href="#">UPDATE</a>
+        <a class="nav-link" href="{% url 'game_detail' object.pk %}">back</a>
+    </nav>
+    </div>
+</header>
+<form action="" method="POST">{% csrf_token %}
+    <p><label for="id_datetime">Datetime</label> <input type="text" name="datetime" maxlength="20" value="{{ object.datetime }}" required id="id_datetime"></p>
+    <p><label for="id_members">Members</label> <textarea name="members" style="width:100%;" maxlength="100" required id="id_members">{{ object.members }}</textarea></p>
+    <p><label for="id_points">Points</label> <textarea name="points" style="width:100%;" maxlength="100" required id="id_points">{{ object.points }}</textarea></p>
+    <p><label for="id_aves">Aves</label> <textarea name="aves" style="width:100%;" maxlength="100"  required id="id_aves">{{ object.aves }}</textarea></p>
+    <p><label for="id_maxs">Maxs</label> <textarea name="maxs" style="width:100%;" maxlength="100"  required id="id_maxs">{{ object.maxs }}</textarea></p>
+    <p><label for="id_mins">Mins</label> <textarea name="mins" style="width:100%;" maxlength="100"  required id="id_mins">{{ object.mins }}</textarea></p>
+    <input class="button" type="submit" value="UPDATE">
+</form>
+<p></p>
+<p></p>
+<p></p>
+{% endblock content %}

@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<header class="hd">
+    <div>
+    <h3 class="float-md-start mb-0">GAME</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link" aria-current="page" href="{% url 'home' %}">home</a>
+        <a class="nav-link" href="{% url 'game_finish' %}">-Finish-</a>
+    </nav>
+    </div>
+</header>
+<body>
+    <nav role="navigation">
+        <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id="menu">
+                <ul id="accordion" class="accordion">
+                    <li>
+                        <div class="link"><i class="fa fa-paint-brush"></i>Member Data<i class="fa fa-chevron-down"></i></div>
+                        <ul class="submenu">
+                            <li>
+                                <table>
+                                    <tr>
+                                        <th>MEMBER</th>
+                                        <th>POINT</th>
+                                        <th>AVE</th>
+                                        <th>MAX</th>
+                                        <th>MIN</th>
+                                    </tr>
+                                    {% for g in game %}
+                                    {% ifequal g.user_set user.get_username %}
+                                    <tr>
+                                        <th><a href="{% url 'core_detail_1' g.pk %}" class="btn btn-gradient btn-border-gradient" style="padding:0.5px 3px; margin:0.5px 1px; color: #b63b4d;">{{ g.membername }}</a></th>
+                                        <th>{{ g.point_total }}</th>
+                                        <th>{{ g.ave }}</th>
+                                        <th>{{ g.max }}</th>
+                                        <th>{{ g.min }}</th>
+                                    </tr>
+                                    {% endifequal %}
+                                    {% endfor %}
+                                </table>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="link"><i class="fa fa-code"></i>Raund Data<i class="fa fa-chevron-down"></i></div>
+                        <ul class="submenu">
+                          <li>
+                            <table>
+                                <tr>
+                                    <th>Member</th>
+                                    <th>Raund</th>
+                                    <th>Score</th>
+                                    <th>hcp</th>
+                                    <th>Point</th>
+                                    <th>Team</th>
+                                </tr>
+                                {% for m in core %}
+                                {% ifequal m.user_set user.get_username %}
+                                <tr>
+                                    <td>{{ m.member}}</td>
+                                    <td>R{{ m.raund }}</td>
+                                    <td>{{ m.score}}</td>
+                                    <td>{{ m.handicap }}</td>
+                                    <td>{{ m.point }}</td>
+                                    <td><a href="{% url 'core_detail_2' m.pk %}" class="btn btn-gradient btn-border-gradient" style="padding:0.5px 3px; margin:0.5px 1px; color: #b63b4d;">{{ m.team_choice }}</a></td>
+                                </tr>
+                                {% endifequal %}
+                                {% endfor %}
+                            </table>
+                          </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="link"><i class="fa fa-code"></i>Team Data<i class="fa fa-chevron-down"></i></div>
+                        <ul class="submenu">
+                            <li>
+                                <table>
+                                    <tr>
+                                        <th>Team</th>
+                                        <th>Raund</th>
+                                        <th>Total Score</th>
+                                        <th>Point</th>
+                                    </tr>
+                                    {% for m in calucu %}
+                                    {% ifequal m.user_set user.get_username %}
+                                    <tr>
+                                        <td>{{ m.team }}</td>
+                                        <td>R{{ m.raund }}</td>
+                                        <td>{{ m.sum_total }}</td>
+                                        <td>{{ m.point_alloc }}</td>
+                                    </tr>
+                                    {% endifequal %}
+                                    {% endfor %}
+                                </table>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+    </nav>
+    <!--h5>{{ year }}年{{ month }}月</h5-->
+    <form action="/index/" method="post"> {% csrf_token %}
+        <p><label class="forms" for="id_member_list" style="width:70px; text-align: left;">Name</label>
+            <select type="radio" name="member_list" required id="id_member_list">
+                {% for mem in member_list %}
+                <option name="member_list" value="{{ mem.membername }}" checked>{{ mem.membername }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p><label class="forms" for="id_raund" style="width:70px; text-align: left;">Raund</label><input type="number" name="raund" required id="id_raund"></p>
+        <p><label class="forms" for="id_score" style="width:70px; text-align: left;">Score</label><input type="number" name="score" required id="id_score"></p>
+        <p><label class="forms" for="id_pin" style="width:70px; text-align: left;">Pin</label><input type="number" name="pin" required id="id_pin"></p>
+        <p><label class="forms" for="id_handicap" style="width:70px; text-align: left;">Handicap</label>
+            <select type="char" name="handicap" id="id_handicap" required>
+                <option name="handicap" value="+0">0</option>
+                <option name="handicap" value="+10">+10</option>
+                <option name="handicap" value="+20">+20</option>
+                <option name="handicap" value="+30">+30</option>
+                <option name="handicap" value="+40">+40</option>
+                <option name="handicap" value="+50">+50</option>
+                <option name="handicap" value="x1.1">x1.1</option>
+                <option name="handicap" value="x1.2">x1.2</option>
+                <option name="handicap" value="x1.3">x1.3</option>
+                <option name="handicap" value="x1.4">x1.4</option>
+                <option name="handicap" value="x1.5">x1.5</option>
+            </select>
+        </p>
+        <p style="margin-bottom: 0;"><label class="forms" for="id_team_choice" style="width:70px; text-align: left;">Team</label>
+            <select type="char" name="team_choice" id="id_team_choice" required>
+                <option name="team_choice" value="" disabled>------</option>
+                <option name="team_choice" value="A">A</option>
+                <option name="team_choice" value="B">B</option>
+                <option name="team_choice" value="C">C</option>
+            </select>
+            <br><span style="font-size: 9px; text-align: right;">　　　　* Use A and B for 2 teams</span>
+        </p>
+        <input class="button" type="submit" name="ok" value="OK">
+        <!--input type="submit" name="button_1" value="ボタン1"--> 
+    </form>
+
+
+    <!-- モーダルエリアここから 
+    <section id="modalArea" class="modalArea">
+        <div id="modalBg" class="modalBg"></div>
+        <div class="modalWrapper">
+        <div class="modalContents">
+            <h1>Do you really want to finish?</h1>
+            <p>
+                <button class="orbtn" id="modalYesBtn">YES</button>
+            </p>
+        </div>
+        <div id="closeModal" class="closeModal">
+            ×
+        </div>
+        </div>
+    </section>
+     モーダルエリアここまで -->
+
+
+</body>       
+<p></p>
+{% endblock content %}

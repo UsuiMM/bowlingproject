@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<header class="hd">
+    <h6 class="mb title">BowlingAPP</h6>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link home-active" href="{% url 'login' %}" style="color: #8fc31f;">LOGIN</a>
+    </nav>
+</header>
+<form class="form-signin" method='post'>{% csrf_token %}
+    <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal" style="color: #88b5c5d9;">Please sign up</h1>
+    {% if error %}
+    {{ error }}
+    {% endif %}
+    <label for="inputEmail" class="visually-hidden">Username</label>
+    <input type="text" id="inputEmail" class="form-control" placeholder="username" name="username_data" required autofocus>
+    <label for="inputPassword" class="visually-hidden">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="password" name="password_data" required>
+    <div class="checkbox mb-3">
+    </div>
+    <button class="btn btn-gradient btn-border-gradient w-100" type="submit" style="font-weight:bold;">Sign up</button>
+</form>
+{% endblock content %}
+

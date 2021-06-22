@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<header class="">
+    <div>
+    <h3 class="float-md-start mb-0">MEMBER DATA</h3>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link" aria-current="" href="{% url 'home' %}">home</a>
+        <a class="nav-link active" href="#">ADD</a>
+        <a class="nav-link" href="{% url 'member_list' %}">back</a>
+    </nav>
+    </div>
+</header>
+<form action="" method="POST">{% csrf_token %}
+    <p><label for="id_membername">Membername:</label> <input type="text" name="membername" maxlength="10" required id="id_membername"></p>
+    <label for="id_user_set"></label> <input type="hidden" name="user_set" value="{{ request.user }}" maxlength="20" required id="id_user_set">
+    <input class="button" type="submit" value="CREATE">
+</form>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<header class="hd">
+    <h6 class="mb title">BowlingAPP</h6>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link home-active" href="{% url 'home' %}" style="color: #8fc31f;">HOME</a>
+    </nav>
+</header>
+<form action="" method="post"> {% csrf_token %}
+    <p>Do you really want to 'logout' ?</p>
+    <input class="button" type="submit" value="LOGOUT">
+</form>
+{% endblock content %}
+
